@@ -48,7 +48,7 @@ const saveToUrl = () => {
     }
     const compressedData = lz.compressToEncodedURIComponent(content);
     // eslint-disable-next-line no-restricted-globals
-    history.pushState(content, 'AlasDiablo Path', `?d=${compressedData}`);
+    history.pushState(content, '', `?d=${compressedData}`);
 };
 
 modeSelector.onchange = (event) => {
