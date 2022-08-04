@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="A url powered paste app">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript,Java,C++,Paste,Pastebin-like">
+    <meta name="author" content="AlasDiablo">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AlasDiablo - URL Paste</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.8.1/ace.js"
+            integrity="sha512-qqjLKA1tYKWxtpKReCrmE8DNYVa+/gNzzeJ6SZaTi+3J+KdTXUlS3AZtcPydvb0rXWtdwE4/KCS4RjfMGeil6g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.8.1/ext-modelist.min.js"
+            integrity="sha512-RX03+gQxfTlsbKpLDZ7MH1c3xkEEsywyr3DaHUiWre/Q5NmcpZsZ3yF5Il+rEJnru9rwA+3S+77ZDKELDsOBsQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+<div id="app">
+    <div id="nav">
+        <a id="title" class="h2" href=".">AlasDiablo - URL Paste</a>
+        <select id="mode" class="form-select form-select-sm" aria-label=".form-select-sm mode">
+            <option selected>Loading syntax...</option>
+        </select>
+        <button id="copy" type="button" class="btn btn-outline-success btn-sm">Share</button>
+    </div>
+    <pre id="editor">
+# A url powered paste app
+
+## What is that ?
+
+This app store the text right here into the page url (no data is store server side)
+
+## Software and library use to make this app:
+
++ [Ace](https://ace.c9.io), Web code editor.
++ [Bootstrap](https://getbootstrap.com), Css library.
++ [Vite](https://vitejs.dev), Front-end development kit.
++ [Fira Code](https://github.com/tonsky/FiraCode), Monospace font for with ligatures related to programming and math.
++ [Xolonium](https://fontlibrary.org/en/font/xolonium), Font use for the nav bar.
+
+## Changelog
+
++ 1.0.1
+    + Fix syntax selector when opening a url with data
+    + Add a link on the title to go on the landing page
++ 1.0.0
+    + Initial version
+</pre>
+</div>
+<script type="module" src="/assets/main.js"></script>
+</body>
+</html>
