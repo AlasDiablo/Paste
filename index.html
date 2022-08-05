@@ -23,36 +23,13 @@
 <div id="app">
     <div id="nav">
         <a id="title" class="h2" href=".">AlasDiablo - URL Paste</a>
+        <input id="file-loader" class="form-control" type="file" aria-label=".form-select-sm file-loader">
         <select id="mode" class="form-select form-select-sm" aria-label=".form-select-sm mode">
             <option selected>Loading syntax...</option>
         </select>
         <button id="copy" type="button" class="btn btn-outline-success btn-sm">Share</button>
     </div>
-    <pre id="editor">
-# A url powered paste app
-
-## What is that ?
-
-This app store the text right here into the page url (no data is store server side)
-
-## Software and library use to make this app:
-
-+ [Ace](https://ace.c9.io), Web code editor.
-+ [Bootstrap](https://getbootstrap.com), Css library.
-+ [Vite](https://vitejs.dev), Front-end development kit.
-+ [LZ-String](https://www.npmjs.com/package/lz-string), LZ compression algorithm use to encode data.
-+ [ESLint](https://eslint.org), Code quality checking.
-+ [Fira Code](https://github.com/tonsky/FiraCode), Monospace font for with ligatures related to programming and math.
-+ [Xolonium](https://fontlibrary.org/en/font/xolonium), Font use for the nav bar.
-
-## Changelog
-
-+ 1.0.1
-    + Fix syntax selector when opening a url with data
-    + Add a link on the title to go on the landing page
-+ 1.0.0
-    + Initial version
-</pre>
+    <pre id="editor"></pre>
 </div>
 <script type="module" src="/assets/main.js"></script>
 </body>
