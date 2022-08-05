@@ -23,7 +23,7 @@ This app store the text right here into the page url (no data is store server si
 + 1.1.0
     + Add file loading option
     + Bad url give the value of the landing page
-    + New open source ! (LGPL-3.0)
+    + New open source ! (MIT)
 + 1.0.1
     + Fix syntax selector when opening a url with data
     + Add a link on the title to go on the landing page
