@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-const { defineConfig } = require('vite');
+import { defineConfig }  from 'vite';
 
-module.exports = defineConfig({
+export default defineConfig({
     base: '/paste/',
     build: {
         target: [
