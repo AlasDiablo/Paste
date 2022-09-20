@@ -1,0 +1,7 @@
+{
+  "serverPort": 3001,
+  "maxPasteSize": 8000,
+  "daysBetweenRemoval": 1,
+  "pasteDuration": 1,
+  "userQuotaByMoths": 10
+}

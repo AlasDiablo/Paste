@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #272822
+    background-color: #272822;
 }
 
 html, body {
@@ -47,6 +47,58 @@ html, body {
 #file-loader, #mode {
     width: 15%;
     margin-right: 10px;
+}
+
+#copy {
+    margin-right: 10px;
+}
+
+#share-panel {
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+#share-panel a {
+    color: white;
+}
+
+#share-panel-container {
+    display:flex;
+    align-items:center;
+    height: 100%;
+    transform: translate(0, -3.5%);
+}
+
+#share-panel-content {
+    position: relative;
+    width: 400px;
+    height: 425px;
+    background-color: #272822;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    border: black solid 2px;
+}
+
+#share-panel button {
+    width: 100%;
+}
+
+#status {
+    padding: 20px;
+    border-radius: 10px;
+    border: black solid 2px;
+}
+
+.margin-top {
+    margin-top: 1%;
 }
 
 #editor {

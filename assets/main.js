@@ -1,5 +1,8 @@
 import './style.css';
 import lz from 'lz-string';
+import $ from 'jquery';
+// eslint-disable-next-line import/no-unresolved
+import Readme from '../readme.md?raw';
 
 // eslint-disable-next-line no-undef
 const editor = ace.edit('editor');
@@ -9,6 +12,9 @@ editor.setTheme('ace/theme/monokai');
 // eslint-disable-next-line no-undef
 const modes = ace.require('ace/ext/modelist');
 const modeSelector = document.getElementById('mode');
+const status = document.getElementById('status');
+const useHttps = document.getElementById('use-https');
+let host = '';
 
 let modeSelectorInnerHTML = '';
 
@@ -25,57 +31,50 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 
 const setDefaultContent = () => {
     editor.session.setMode('ace/mode/markdown');
-    editor.session.setValue(`# An url powered paste app
+    editor.session.setValue(Readme);
+};
 
-### What is that ?
-
-This app store the text right here into the page url (no data is store server side)
-
-### Software and library use to make this app:
-
-+ [Ace](https://ace.c9.io), Web code editor.
-+ [Bootstrap](https://getbootstrap.com), Css library.
-+ [Vite](https://vitejs.dev), Front-end development kit.
-+ [LZ-String](https://www.npmjs.com/package/lz-string), LZ compression algorithm use to encode data.
-+ [ESLint](https://eslint.org), Code quality checking.
-+ [Fira Code](https://github.com/tonsky/FiraCode), Monospace font use in the code editor with ligatures related to programming and math.
-+ [Xolonium](https://fontlibrary.org/en/font/xolonium), Font use for the nav bar.
-
-### Want more functionality or juste report issues ?
-
-+ [GitHub](https://github.com/AlasDiablo/Paste)
-
-### Changelog
-
-+ 1.1.0
-    + Add file loading option
-    + Bad url give the value of the landing page
-    + New open source ! (MIT)
-+ 1.0.1
-    + Fix syntax selector when opening a url with data
-    + Add a link on the title to go on the landing page
-+ 1.0.0
-    + Initial version
-`);
+const setContent = (data) => {
+    const uncompressedData = lz.decompressFromEncodedURIComponent(data);
+    const lines = uncompressedData.split('\n');
+    const header = JSON.parse(lines.shift());
+    editor.session.setMode(header.mode);
+    editor.session.setValue(lines.join('\n'));
+    modeSelector.value = header.mode;
 };
 
 const data = params.d;
 if (data !== null && data !== undefined) {
     try {
-        const uncompressedData = lz.decompressFromEncodedURIComponent(data);
-        const lines = uncompressedData.split('\n');
-        const header = JSON.parse(lines.shift());
-        editor.session.setMode(header.mode);
-        editor.session.setValue(lines.join('\n'));
-        modeSelector.value = header.mode;
+        setContent(data);
     } catch (error) {
         setDefaultContent();
     }
+} else if ((params.host !== null && params.host !== undefined)
+    && (params.id !== null && params.id !== undefined)) {
+    $.ajax({
+        type: 'GET',
+        crossOrigin: true,
+        data: {
+            id: params.id,
+        },
+        url: `${params.host}/load`,
+        success: (result) => {
+            try {
+                setContent(result.content);
+            } catch (error) {
+                setDefaultContent();
+            }
+        },
+        error: () => {
+            status.innerText = 'Fail to check server...';
+        },
+    });
 } else {
     setDefaultContent();
 }
 
-const saveToUrl = () => {
+const getCompressedData = () => {
     const doc = editor.session.getDocument().getAllLines();
     let content = JSON.stringify({
         mode: editor.session.$modeId,
@@ -85,8 +84,32 @@ const saveToUrl = () => {
         content += `\n${doc.shift()}`;
     }
     const compressedData = lz.compressToEncodedURIComponent(content);
-    // eslint-disable-next-line no-restricted-globals
-    history.pushState(content, '', `?d=${compressedData}`);
+    return {
+        content,
+        compressedData,
+    };
+};
+
+const saveToUrl = () => {
+    const { content, compressedData } = getCompressedData();
+    window.history.pushState(content, '', `?d=${compressedData}`);
+};
+
+const checkServer = () => {
+    const url = `${useHttps.checked ? 'https://' : 'http://'}${host}/`;
+    status.innerText = `Checking server[${url}]...`;
+    $.ajax({
+        type: 'GET',
+        crossOrigin: true,
+        url,
+        success: (result) => {
+            status.innerText = `Success, quota left : ${result.quota}`;
+            window.localStorage.setItem('host', host);
+        },
+        error: () => {
+            status.innerText = 'Fail to check server...';
+        },
+    });
 };
 
 modeSelector.onchange = (event) => {
@@ -117,4 +140,55 @@ document.getElementById('file-loader').addEventListener('change', (event) => {
             modeSelector.value = mode.mode;
         }
     });
+});
+
+document.getElementById('share').onclick = () => {
+    document.getElementById('share-panel').style.display = 'block';
+    const savedHost = window.localStorage.getItem('host');
+    if (savedHost) host = savedHost;
+    if (host !== '') {
+        document.getElementById('server-url').value = host;
+        checkServer();
+    }
+};
+
+document.getElementById('cancel-shared').onclick = () => {
+    document.getElementById('share-panel').style.display = 'none';
+};
+
+document.getElementById('copy-shared').onclick = () => {
+    const sharedUrl = document.getElementById('shared-url');
+    const baseUrl = `${useHttps.checked ? 'https://' : 'http://'}${host}`;
+    const url = `${baseUrl}/save`;
+    const { content, compressedData } = getCompressedData();
+    $.ajax({
+        type: 'POST',
+        data: {
+            content: compressedData,
+        },
+        crossOrigin: true,
+        url,
+        success: (result) => {
+            status.innerText = `Success, paste id : ${result.id}`;
+            window.history.pushState(content, '', `?host=${baseUrl}&id=${result.id}`);
+            sharedUrl.value = window.location.href;
+            navigator.clipboard.writeText(
+                sharedUrl.value,
+            ).then(() => {
+                document.getElementById('share-panel').style.display = 'none';
+            });
+        },
+        error: () => {
+            status.innerText = 'Fail to save data into the server...';
+        },
+    });
+};
+
+useHttps.addEventListener('change', () => {
+    if (host !== '') checkServer();
+});
+
+document.getElementById('server-url').addEventListener('change', (event) => {
+    host = event.target.value;
+    checkServer();
 });

@@ -28,9 +28,36 @@
             <option selected>Loading syntax...</option>
         </select>
         <button id="copy" type="button" class="btn btn-outline-success btn-sm">Copy URL</button>
+        <button id="share" type="button" class="btn btn-outline-success btn-sm">Share Online</button>
+    </div>
+    <div id="share-panel">
+        <div id="share-panel-container">
+            <div id="share-panel-content">
+                <label for="server-url">Paste Server Host*:</label>
+                <input id="server-url" class="form-control form-control-sm" type="text" placeholder="paste.example.com:3001">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="use-https">
+                    <label class="form-check-label" for="use-https">
+                        Use https
+                    </label>
+                </div>
+                <label for="shared-url" class="margin-top">Share URL:</label>
+                <input id="shared-url" class="form-control form-control-sm" type="text" placeholder="To be determined">
+                <p class="margin-top"><i>
+                    * We do not provide storage server for now,
+                    check the <a href="https://github.com/AlasDiablo/Paste" target="_blank">GitHub</a> page to get the server application.
+                </i></p>
+                <label for="status">Status:</label>
+                <p id="status">
+                    Waiting for user input.
+                </p>
+                <button id="copy-shared" type="button" class="btn btn-outline-success btn-sm">Copy URL</button>
+                <button id="cancel-shared" type="button" class="btn btn-outline-danger btn-sm margin-top">Cancel</button>
+            </div>
+        </div>
     </div>
     <pre id="editor"></pre>
 </div>
-<script type="module" src="/assets/main.js"></script>
+<script type="module" src="/assets/main.js" crossorigin="anonymous"></script>
 </body>
 </html>
