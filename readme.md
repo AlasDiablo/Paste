@@ -32,6 +32,8 @@ This app store the text right here into the page url (no data is store server si
 
 ### Changelog
 
++ 2.0.1
+    + Enforce https
 + 2.0.0
     + Add server application to store paste
     + Add client server share option

@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import Database from 'better-sqlite3';
 import bodyParser from "body-parser";
+import fs from 'fs';
+import https from 'https';
 import config from './server.config.json' assert { type: "json" };
 
 const db = new Database('./paste.db');
@@ -74,4 +76,13 @@ setInterval(() => {
     stmt.run(date.getTime());
 }, (1000 * 60 * 60 * 24) * config.daysBetweenRemoval);
 
-app.listen(config.serverPort);
+if (config.useHttps) {
+    https.createServer({
+                key: fs.readFileSync("key.pem"),
+                cert: fs.readFileSync("cert.pem"),
+            },
+            app,
+        ).listen(config.serverPort);
+} else {
+    app.listen(config.serverPort);
+}

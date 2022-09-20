@@ -2,7 +2,7 @@
   "name": "paste.alasdiablo.fr",
   "private": true,
   "type": "module",
-  "version": "1.1.0",
+  "version": "2.0.1",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
