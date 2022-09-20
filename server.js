@@ -13,10 +13,10 @@ import config from './server.config.json' assert { type: "json" };
 const db = new Database('./paste.db');
 
 /**
- * User quota by moths
+ * User quota by month
  * @type {number}
  */
-const quota = config.userQuotaByMoths;
+const quota = config.userQuotaByMonth;
 
 /**
  * RESTFul API
