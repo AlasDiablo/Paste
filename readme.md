@@ -30,7 +30,7 @@ This app store the text right here into the page url (no data is store server si
 4. Run `npm run server` in the cloned repository to start the storage server.
 5. Get your server ip and use it on the application.
 
-#### Default Server options: 
+#### Default Server options:
 ```js
 {
   "serverPort": 3001, // server port
@@ -44,6 +44,10 @@ This app store the text right here into the page url (no data is store server si
 
 ### Changelog
 
++ 2.1.0
+  + Use GitHub Actions to deploy the application
+  + Add a link to the repository
+  + Add a link to the documentation
 + 2.0.3
     + Fix typo
 + 2.0.2
