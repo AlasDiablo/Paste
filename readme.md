@@ -22,7 +22,7 @@ This app store the text right here into the page url (no data is store server si
 
 + [GitHub](https://github.com/AlasDiablo/Paste)
 
-### Who to setup a storage server ?
+### How to setup a storage server ?
 
 1. Install [NodeJS 16.17.0 LTS](https://nodejs.org/en/).
 2. Clone or download the official GitHub repository
