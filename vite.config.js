@@ -7,7 +7,7 @@ export default defineConfig({
             'es2020',
             'chrome80',
             'firefox80',
-            'node14',
+            'node16',
         ],
     },
 });

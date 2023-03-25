@@ -31,7 +31,7 @@ This app store the text right here into the page url (no data is store server si
 5. Get your server ip and use it on the application.
 
 #### Default Server options:
-```js
+```json5
 {
   "serverPort": 3001, // server port
   "maxPasteSize": 8000, // Size of the paste in char (bytes)
@@ -44,6 +44,21 @@ This app store the text right here into the page url (no data is store server si
 
 ### Changelog
 
++ 2.2.0
+  + Update project dependencies
+    + Client
+      + Ace from 1.8.1 to 1.16.0
+      + JQuery from 3.6.1 to 3.6.4
+      + lz-string from 1.4.4 to 1.5.0
+    + Server
+      + better-sqlite3 from 7.6.2 to 8.2.0
+      + body-parser from 1.20.0 to 1.20.2
+      + express from 4.18.1 to 4.18.2
+    + Development
+      + @types/lz-string from 1.3.34 to 1.5.0
+      + eslint from 8.22.0 to 8.36.0
+      + eslint-plugin-import from 2.26.0 to 2.27.5
+      + vite from 2.9.15 to 4.2.1
 + 2.1.0
   + Use GitHub Actions to deploy the application
   + Add a link to the repository
